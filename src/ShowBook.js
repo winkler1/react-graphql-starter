@@ -18,7 +18,7 @@ class ShowBook extends Component {
     let book = data.bookByID;
     return (
       <div>
-        <img height={300} src={book.image}/>
+        <img height={300} role="presentation" src={book.image}/>
         <h1>{book.title}</h1>
         <p>{book.description}</p>
       </div>
@@ -30,7 +30,6 @@ const BookQuery = gql`
 query BookQuery($id:String){
  bookByID(id: $id) {
     description
-    id
     image
     title
  }
