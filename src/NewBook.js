@@ -8,9 +8,9 @@ class NewBook extends Component {
   state = {
     authorId: 0, // HARDCODED
     id: new Date().getTime(),
-    description: 'aaa',
-    image: 'bbb',
-    title: 'ccc'
+    description: "Mixing traditional heroic fantasy with a diverse and evolving cast of characters, George R.R. Martin's A Song of Ice and Fire centers on the politics and statecraft of the ruling families of Westeros and beyond. With a string of switching point of view narratives from lead and ancillary characters, and an overarching plot with more twists than a Dothraki hair braid, the novels have moved beyond staple fantasy bestsellers and into a cultural event as millions of fans discuss the HBO television series",
+    image: 'https://03fcd67fd51850d3ba6b-6cb392df11a341bce8c76b1898d0c030.ssl.cf3.rackcdn.com/large/9780/0074/9780007448036.jpg',
+    title: 'A Game of Thrones'
   }
 
   canSave = () => {
@@ -20,7 +20,7 @@ class NewBook extends Component {
   // Calls `this.props.mutate` function.
   handleSave = () => {
     const {authorId, id, description, image, title} = this.state;
-    this.props.mutate({variables: {authorId, id, description, image, title}})
+    this.props.mutate({variables: {book: {authorId, id, description, image, title}}})
       .then(()=> {
         console.log("Saved book!");
         this.handleCancel()
@@ -28,7 +28,7 @@ class NewBook extends Component {
   }
 
   handleCancel = () => {
-    this.props.router.replace('/')
+    this.props.router.replace('/books/list')
   }
 
   render() {
@@ -74,11 +74,9 @@ class NewBook extends Component {
 }
 
 const createBookMutation = gql`
-mutation addBook($authorId: String!, $description: String!, $id: String!, $image: String!, $title: String!) {
- addBook(authorId: $authorId, description: $description, id: $id, image: $image, title: $title) {
-  book {
-   id
-  }
+mutation addBook($book:BookInput) {
+ addBook(book: $book) {
+ id
  }
 }
 `;

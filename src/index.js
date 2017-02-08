@@ -11,7 +11,7 @@ import './index.css';
 
 const client = new ApolloClient({
   networkInterface: createNetworkInterface({
-    uri: "http://localhost:5000/graphql"
+    uri: "http://localhost:5000"
   }),
   connectToDevTools: true
 });
